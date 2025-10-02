@@ -1,0 +1,16 @@
+uwearit/
+│
+├── backend/
+│   └── index.js
+│   └── models/
+│   └── routes/
+│   └── .env
+│
+├── frontend/
+│   └── src/
+│       └── App.js
+│       └── components/
+│       └── pages/
+│   └── public/
+│   └── package.json
+└── README.md
