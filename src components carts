@@ -1,0 +1,17 @@
+import React from 'react';
+
+// This is a stub - in full version, you’d use context or Redux to track cart
+function Cart({ cartItems, onCheckout }) {
+  return (
+    <div>
+      <h2>Shopping Cart</h2>
+      {cartItems.map(item => (
+          <div key={item._id}>
+            <span>{item.name} - {item.quantity} x P{item.price}</span>
+          </div>
+      ))}
+      <button onClick={onCheckout}>Checkout</button>
+    </div>
+  );
+}
+export default Cart;
