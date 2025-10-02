@@ -1,0 +1,26 @@
+// Product API (Express)
+app.get('/api/products', async (req, res) => {
+  const products = await db.collection('products').find().toArray();
+  res.json(products);
+});
+
+// Stripe Payment API
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+app.post('/api/checkout', async (req, res) => {
+  const { cartItems } = req.body;
+  const session = await stripe.checkout.sessions.create({
+    payment_method_types: ['card'],
+    line_items: cartItems.map(item => ({
+      price_data: {
+        currency: 'bwp',
+        product_data: { name: item.name },
+        unit_amount: item.price * 100,
+      },
+      quantity: item.quantity,
+    })),
+    mode: 'payment',
+    success_url: 'https://uwearit.com/success',
+    cancel_url: 'https://uwearit.com/cancel',
+  });
+  res.json({ id: session.id });
+});
